@@ -75,4 +75,4 @@ class Queue:
         return self.queue.pop(0)
 
     def len(self) -> int:
-        return le
+        return len(self.queue)
