@@ -60,3 +60,20 @@ print(prime(6))
 print(prime(7))
 
 #zadanie 7
+
+# zadanie 9
+
+def string(txt: str) -> str:
+    if len(txt) == 0:
+        return ""
+    elif len(txt) == 1:
+        return txt[0] + txt[1:]
+    else:
+        if txt[0] == txt[1]:
+            return txt[0] + string(txt[2:])
+        else:
+            return txt[0] + string(txt[1:])
+
+
+print(string('Hello'))
+
