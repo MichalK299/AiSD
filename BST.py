@@ -49,3 +49,19 @@ class BinarySearchTree:
             else:
                 x = x.right_child
         return False
+    
+    def remove(self, value: Any) -> None:
+        self._remove(self.root, value)
+
+    def _remove(self, node: BinaryNode, value: Any) -> BinaryNode:
+        if node.value is None:
+            return node
+        elif value < node.value:
+            node.left_child = self._remove(node.left_child, value)
+        elif value > node.value:
+            node.right_child = self._remove(node.right_child, value)
+        else:
+            if node.left_child is None:
+                temp = node.left_child
+                self.node = None
+                return temp
