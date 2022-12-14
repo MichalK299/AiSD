@@ -1,4 +1,5 @@
 from typing import Any
+import graphviz
 
 
 class BinaryNode:
@@ -16,7 +17,14 @@ class BinaryNode:
             return self
         else:
             self.left_child.min()
-            
+
+    def print_tree(self):
+        if self.left_child:
+            self.left_child.print_tree()
+        print(self.value)
+        if self.right_child:
+            self.right_child.print_tree()
+
 
 class BinarySearchTree:
     root: "BinaryNode"
@@ -28,11 +36,12 @@ class BinarySearchTree:
         self.__insert(self.root, value)
 
     def __insert(self, node: BinaryNode, value: Any) -> BinaryNode:
-        while node is not None:
-            if node.value > value:
-                node.left_child = self.__insert(node.left_child, value)
-            else:
-                node.right_child = self.__insert(node.right_child, value)
+        if node is None:
+            return BinaryNode(value)
+        if value < node.value:
+            node.left_child = self.__insert(node.left_child, value)
+        else:
+            node.right_child = self.__insert(node.right_child, value)
         return node
 
     def insert_list(self, list_: list[Any]) -> None:
@@ -49,9 +58,9 @@ class BinarySearchTree:
             else:
                 x = x.right_child
         return False
-    
+
     def remove(self, value: Any) -> None:
-        self._remove(self.root, value)
+        self.__remove(self.root, value)
 
     def __remove(self, node: BinaryNode, value: Any):
         if node is None:
@@ -68,3 +77,30 @@ class BinarySearchTree:
         else:
             node.right_child = self.__remove(node.right_child, value)
         return node
+
+    def print_tree(self):
+        if self.root.left_child:
+            self.root.left_child.print_tree()
+        print(self.root.value)
+        if self.root.right_child:
+            self.root.right_child.print_tree()
+
+
+t = BinarySearchTree(BinaryNode(4))
+t.insert(1)
+t.insert(5)
+t.insert(3)
+t.insert(8)
+t.insert(10)
+t.print_tree()
+print(t.contains(6))
+print(t.contains(1))
+
+t.remove(6)
+t.remove(10)
+
+print('-----------')
+t.print_tree()
+
+print(t.contains(6))
+print(t.contains(1))
